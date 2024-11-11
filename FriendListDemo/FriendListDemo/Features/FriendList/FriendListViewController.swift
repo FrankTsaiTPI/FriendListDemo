@@ -50,6 +50,7 @@ class FriendListViewController: BaseViewController {
         let label = UILabel()
         label.textColor = .greyishBrown
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.text = "設定 KOKO ID"
         
         return label
     }()

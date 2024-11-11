@@ -12,7 +12,7 @@ struct FriendModel: Decodable {
     let status: FriendStatusEnum
     let isTop: Bool
     let fid: String
-    let updateDate: Date?
+    let updateDate: Date
     
     enum CodingKeys: String, CodingKey {
         case name = "name"

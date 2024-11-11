@@ -12,11 +12,16 @@ extension String {
         self == "1" ? true : false
     }
     
-    var toDate: Date? {
+    var toDate: Date {
         let formatter = DateFormatter()
         formatter.timeZone = .init(identifier: "GMT")
-        formatter.dateFormat = "yyyyMMdd"
         
-        return formatter.date(from: self)
+        if self.contains("/") {
+            formatter.dateFormat = "yyyy/MM/dd"
+        } else {
+            formatter.dateFormat = "yyyyMMdd"
+        }
+        
+        return formatter.date(from: self) ?? Date()
     }
 }

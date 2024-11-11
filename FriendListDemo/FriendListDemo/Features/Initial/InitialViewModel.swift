@@ -90,7 +90,30 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
     }
     
     private func fetchFriendWithoutInvite() {
+        let manEndpoint: APIEndpoint = .man
+        let friend1Endpoint: APIEndpoint = .friend1
+        let friend2Endpoint: APIEndpoint = .friend2
         
+        let manPublisher = NetworkManager.shared.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
+        let friend1Publisher = NetworkManager.shared.fetchData(endpoint: friend1Endpoint, responseModel: FriendModel.self)
+        let friend2Publisher = NetworkManager.shared.fetchData(endpoint: friend2Endpoint, responseModel: FriendModel.self)
+        
+        Publishers.Zip3(manPublisher, friend1Publisher, friend2Publisher)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    self.errorSubject.send(error)
+                case .finished:
+                    break
+                }
+            } receiveValue: { manModel, friend1Model, friend2Model in
+                let combinedFriendModel = friend1Model + friend2Model
+                let removeDuplicated = Dictionary(combinedFriendModel.map { ($0.fid, $0) }) { lhs, rhs in
+                    return lhs.updateDate > rhs.updateDate ? lhs : rhs
+                }.map { $0.value }
+                
+                self.manAndFriendSubject.send((manModel, removeDuplicated))
+            }.store(in: &cancellables)
     }
     
     private func fetchFriendWithInvite() {
