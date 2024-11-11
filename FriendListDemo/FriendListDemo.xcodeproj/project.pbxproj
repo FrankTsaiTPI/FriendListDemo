@@ -29,6 +29,9 @@
 		7A6A0F5E2CDCB5440024F943 /* FriendStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F5D2CDCB5440024F943 /* FriendStatusEnum.swift */; };
 		7A6A0F602CDCB8A10024F943 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F5F2CDCB8A10024F943 /* ResponseModel.swift */; };
 		7A6A0F622CDDA8FA0024F943 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F612CDDA8FA0024F943 /* NetworkError.swift */; };
+		7A6A0F792CDDEFF90024F943 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F782CDDEFF90024F943 /* UIColor+Extension.swift */; };
+		7A6A0F7E2CE18A620024F943 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F7D2CE18A620024F943 /* TabView.swift */; };
+		7A6A0F862CE1A71A0024F943 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F852CE1A71A0024F943 /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,9 @@
 		7A6A0F5D2CDCB5440024F943 /* FriendStatusEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendStatusEnum.swift; sourceTree = "<group>"; };
 		7A6A0F5F2CDCB8A10024F943 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		7A6A0F612CDDA8FA0024F943 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		7A6A0F782CDDEFF90024F943 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		7A6A0F7D2CE18A620024F943 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		7A6A0F852CE1A71A0024F943 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -167,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				7A6A0F462CDC6C970024F943 /* Resources */,
+				7A6A0F7A2CE18A460024F943 /* ComponentUI */,
 				7A6A0F2C2CDC53C90024F943 /* Core */,
 				7A6A0F1B2CDC536F0024F943 /* Network */,
 				7A6A0F1A2CDC536F0024F943 /* Features */,
@@ -262,8 +269,18 @@
 			isa = PBXGroup;
 			children = (
 				7A6A0F5B2CDCB4B50024F943 /* String+Extension.swift */,
+				7A6A0F782CDDEFF90024F943 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		7A6A0F7A2CE18A460024F943 /* ComponentUI */ = {
+			isa = PBXGroup;
+			children = (
+				7A6A0F7D2CE18A620024F943 /* TabView.swift */,
+				7A6A0F852CE1A71A0024F943 /* GradientView.swift */,
+			);
+			path = ComponentUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +437,7 @@
 				7A6A0F622CDDA8FA0024F943 /* NetworkError.swift in Sources */,
 				7A6A0F492CDC6CDF0024F943 /* PageTypeEnum.swift in Sources */,
 				7A6A0F3E2CDC5DEC0024F943 /* NetworkManager.swift in Sources */,
+				7A6A0F792CDDEFF90024F943 /* UIColor+Extension.swift in Sources */,
 				7A6A0F242CDC536F0024F943 /* AppDelegate.swift in Sources */,
 				7A6A0F3A2CDC55160024F943 /* InitialViewModel.swift in Sources */,
 				7A6A0F4C2CDC8AFB0024F943 /* FriendListViewController.swift in Sources */,
@@ -427,6 +445,7 @@
 				7A6A0F572CDCB4080024F943 /* ManModel.swift in Sources */,
 				7A6A0F592CDCB4680024F943 /* FriendModel.swift in Sources */,
 				7A6A0F5C2CDCB4B50024F943 /* String+Extension.swift in Sources */,
+				7A6A0F862CE1A71A0024F943 /* GradientView.swift in Sources */,
 				7A6A0F552CDCAFC10024F943 /* APIEndpoint+Friend.swift in Sources */,
 				7A6A0F252CDC536F0024F943 /* SceneDelegate.swift in Sources */,
 				7A6A0F312CDC53F60024F943 /* BaseViewController.swift in Sources */,
@@ -434,6 +453,7 @@
 				7A6A0F5E2CDCB5440024F943 /* FriendStatusEnum.swift in Sources */,
 				7A6A0F602CDCB8A10024F943 /* ResponseModel.swift in Sources */,
 				7A6A0F532CDCAF5D0024F943 /* APIEndpoint.swift in Sources */,
+				7A6A0F7E2CE18A620024F943 /* TabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
