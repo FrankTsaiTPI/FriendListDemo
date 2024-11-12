@@ -108,10 +108,13 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
                 }
             } receiveValue: { manModel, friend1Model, friend2Model in
                 let combinedFriendModel = friend1Model + friend2Model
-                let removeDuplicated = Dictionary(combinedFriendModel.map { ($0.fid, $0) }) { lhs, rhs in
+                var removeDuplicated = Dictionary(combinedFriendModel.map { ($0.fid, $0) }) { lhs, rhs in
                     return lhs.updateDate > rhs.updateDate ? lhs : rhs
                 }.map { $0.value }
                 
+                removeDuplicated.sort { lhs, rhs in
+                    return lhs.fid < rhs.fid
+                }
                 self.manAndFriendSubject.send((manModel, removeDuplicated))
             }.store(in: &cancellables)
     }

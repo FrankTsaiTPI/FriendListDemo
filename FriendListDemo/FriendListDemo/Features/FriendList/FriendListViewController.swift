@@ -7,6 +7,7 @@
 
 import UIKit
 import CombineDataSources
+import Combine
 
 class FriendListViewController: BaseViewController {
 
@@ -186,10 +187,26 @@ class FriendListViewController: BaseViewController {
         return view
     }()
     
+    private lazy var searchTextFieldBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.steel.withAlphaComponent(0.12)
+        view.layer.cornerRadius = 10
+        
+        return view
+    }()
+    
+    private lazy var searchIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "iconSearchBarSearchGray")
+        
+        return imageView
+    }()
+    
     private lazy var searchTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Search"
-        textField.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        textField.placeholder = "想轉一筆給誰呢？"
+        textField.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         textField.textColor = .greyishBrown
         
         return textField
@@ -204,17 +221,25 @@ class FriendListViewController: BaseViewController {
     }()
     
     // MARK: list
+    private lazy var friendListBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white_two
+        view.isHidden = true
+        
+        return view
+    }()
+    
     private lazy var friendListTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.isHidden = true
+        tableView.register(FriendListCell.self)
         
         return tableView
     }()
     
-    private lazy var invitationView: UIView = {
+    private lazy var invitationBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .white_two
         view.isHidden = true
@@ -225,6 +250,7 @@ class FriendListViewController: BaseViewController {
     private lazy var invitationTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
@@ -232,6 +258,7 @@ class FriendListViewController: BaseViewController {
     }()
     
     private let viewModel: FriendListViewModel
+    private var keyboardCancellables: AnyCancellable?
     
     init(viewModel: FriendListViewModel) {
         self.viewModel = viewModel
@@ -245,6 +272,8 @@ class FriendListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.inputs.setFriendListCellModels()
     }
     
     override func setupLayout() {
@@ -257,18 +286,21 @@ class FriendListViewController: BaseViewController {
         
         pageStackView.addArrangedSubview(friendListStackView)
         
-        friendListStackView.addArrangedSubview(invitationView)
-        invitationView.addSubview(invitationTableView)
+        friendListStackView.addArrangedSubview(invitationBackgroundView)
+        invitationBackgroundView.addSubview(invitationTableView)
         
         friendListStackView.addArrangedSubview(tabBackgroundView)
         tabBackgroundView.addSubview(tabView)
         tabBackgroundView.addSubview(tabBackgroundViewSeparator)
         
         friendListStackView.addArrangedSubview(searchBackgroundView)
-        searchBackgroundView.addSubview(searchTextField)
+        searchBackgroundView.addSubview(searchTextFieldBackgroundView)
         searchBackgroundView.addSubview(searchAddFriendButton)
+        searchTextFieldBackgroundView.addSubview(searchIconImageView)
+        searchTextFieldBackgroundView.addSubview(searchTextField)
         
-        friendListStackView.addArrangedSubview(friendListTableView)
+        friendListStackView.addArrangedSubview(friendListBackgroundView)
+        friendListBackgroundView.addSubview(friendListTableView)
         
         friendListStackView.addArrangedSubview(noFriendsView)
         noFriendsView.addSubview(noFriendsImageView)
@@ -283,7 +315,7 @@ class FriendListViewController: BaseViewController {
         
         pageStackView.snp.makeConstraints {
             $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         // manView
         manView.snp.makeConstraints {
@@ -308,7 +340,7 @@ class FriendListViewController: BaseViewController {
         }
         
         // invitationView
-        invitationView.snp.makeConstraints {
+        invitationBackgroundView.snp.makeConstraints {
             $0.height.equalTo(175)
         }
         
@@ -337,16 +369,29 @@ class FriendListViewController: BaseViewController {
             $0.height.equalTo(61)
         }
         
-        searchTextField.snp.makeConstraints {
+        searchTextFieldBackgroundView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(30)
-            $0.trailing.equalTo(searchAddFriendButton.snp.leading).offset(15)
+            $0.trailing.equalTo(searchAddFriendButton.snp.leading).offset(-15)
+            $0.height.equalTo(36)
         }
         
         searchAddFriendButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(30)
             $0.height.width.equalTo(24)
+        }
+        
+        searchIconImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(10)
+            $0.height.width.equalTo(14)
+        }
+        
+        searchTextField.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(searchIconImageView.snp.trailing).offset(8)
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         // noFriendsView
@@ -390,7 +435,6 @@ class FriendListViewController: BaseViewController {
         setKokoIdBackgroundView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(noFriendsAddFriendView.snp.bottom).offset(37)
-            $0.bottom.equalToSuperview().inset(20)
         }
         
         helpFriendFindYouLabel.snp.makeConstraints {
@@ -401,9 +445,25 @@ class FriendListViewController: BaseViewController {
             $0.leading.equalTo(helpFriendFindYouLabel.snp.trailing).offset(5)
             $0.trailing.top.bottom.equalToSuperview()
         }
+        
+        friendListTableView.snp.makeConstraints {
+            $0.leading.trailing.top.bottom.equalToSuperview()
+        }
     }
     
     override func bindUI() {
+        keyboardCancellables = handleKeyboardNotifications()
+        keyboardStatusSubject
+            .dropFirst()
+            .sink { [weak self] height in
+                guard let self = self else { return }
+                
+                self.pageStackView.snp.remakeConstraints {
+                    $0.leading.trailing.top.equalTo(self.view.safeAreaLayoutGuide)
+                    $0.bottom.equalToSuperview().inset(height)
+                }
+            }.store(in: &cancellables)
+        
         searchAddFriendButton.tapPublisher
             .receive(on: RunLoop.main)
             .sink { button in
@@ -417,6 +477,16 @@ class FriendListViewController: BaseViewController {
         noFriendsAddFriendView.tapViewSubject.sink {
             print("noFriendsAddFriendView tapped")
         }.store(in: &cancellables)
+        
+        searchTextField.textPublisher
+            .dropFirst()
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] text in
+                guard let self = self else { return }
+                
+                self.viewModel.inputs.filterFriends(keyword: text ?? "")
+            }.store(in: &cancellables)
     }
     
     override func bindViewModel() {
@@ -434,10 +504,17 @@ class FriendListViewController: BaseViewController {
             guard let self = self else { return }
             print(" Friend : \(friendModel)")
             
-            self.friendListTableView.isHidden = friendModel.isEmpty
+            self.friendListBackgroundView.isHidden = friendModel.isEmpty
             self.searchBackgroundView.isHidden = friendModel.isEmpty
             self.noFriendsView.isHidden = !friendModel.isEmpty
             
         }.store(in: &cancellables)
+        
+        viewModel.outputs.friendListCellModelPublisher
+            .receive(on: RunLoop.main)
+            .bind(subscriber: friendListTableView.rowsSubscriber(cellIdentifier: FriendListCell.reuseIdentifier, cellType: FriendListCell.self, cellConfig: { cell, indexPath,  cellModel in
+
+                cell.configureWith(value: cellModel)
+            })).store(in: &cancellables)
     }
 }

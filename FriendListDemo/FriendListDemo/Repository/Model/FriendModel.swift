@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FriendModel: Decodable {
+struct FriendModel: Decodable, Hashable {
     let name: String
     let status: FriendStatusEnum
     let isTop: Bool

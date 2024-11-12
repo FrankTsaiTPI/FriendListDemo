@@ -62,4 +62,16 @@ extension UIColor {
     class var appleGreen40: UIColor {
         UIColor(hexString: "#79C41B")
     }
+    
+    class var pinkishGrey: UIColor {
+        UIColor(hexString: "#c9c9c9")
+    }
+    
+    class var whiteThree: UIColor {
+        UIColor(hexString: "#e4e4e4")
+    }
+    
+    class var steel: UIColor {
+        UIColor(hexString: "#8e8e93")
+    }
 }
