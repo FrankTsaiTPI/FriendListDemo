@@ -21,6 +21,8 @@ class FriendListCellModel: BaseTableViewCellModel, Hashable {
     static func == (lhs: FriendListCellModel, rhs: FriendListCellModel) -> Bool {
         return lhs.friendModel == rhs.friendModel
     }
-    func hash(into hasher: inout Hasher) { hasher.combine(friendModel)
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(friendModel)
     }
 }

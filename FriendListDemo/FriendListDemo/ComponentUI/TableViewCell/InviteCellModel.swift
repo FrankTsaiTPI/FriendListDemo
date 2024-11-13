@@ -25,7 +25,8 @@ class InviteCellModel: BaseTableViewCellModel, Hashable {
         return lhs.friendModel == rhs.friendModel
     }
     
-    func hash(into hasher: inout Hasher) { hasher.combine(friendModel)
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(friendModel)
     }
     
     func agreeButtonTapped() {
