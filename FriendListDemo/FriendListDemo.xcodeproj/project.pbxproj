@@ -38,6 +38,8 @@
 		7A6A0F912CE1F3250024F943 /* FriendListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F902CE1F3250024F943 /* FriendListCellModel.swift */; };
 		7A6A0F932CE2E4200024F943 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F922CE2E4200024F943 /* UITableView+Extension.swift */; };
 		7A6A0F952CE2E4700024F943 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F942CE2E4700024F943 /* UIView+Extension.swift */; };
+		7A6A0F972CE34E950024F943 /* InviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F962CE34E950024F943 /* InviteCell.swift */; };
+		7A6A0F992CE34EA20024F943 /* InviteCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6A0F982CE34EA20024F943 /* InviteCellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		7A6A0F902CE1F3250024F943 /* FriendListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCellModel.swift; sourceTree = "<group>"; };
 		7A6A0F922CE2E4200024F943 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		7A6A0F942CE2E4700024F943 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		7A6A0F962CE34E950024F943 /* InviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCell.swift; sourceTree = "<group>"; };
+		7A6A0F982CE34EA20024F943 /* InviteCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCellModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -305,6 +309,8 @@
 			children = (
 				7A6A0F8E2CE1F3180024F943 /* FriendListCell.swift */,
 				7A6A0F902CE1F3250024F943 /* FriendListCellModel.swift */,
+				7A6A0F962CE34E950024F943 /* InviteCell.swift */,
+				7A6A0F982CE34EA20024F943 /* InviteCellModel.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A6A0F992CE34EA20024F943 /* InviteCellModel.swift in Sources */,
 				7A6A0F622CDDA8FA0024F943 /* NetworkError.swift in Sources */,
 				7A6A0F492CDC6CDF0024F943 /* PageTypeEnum.swift in Sources */,
 				7A6A0F3E2CDC5DEC0024F943 /* NetworkManager.swift in Sources */,
@@ -474,6 +481,7 @@
 				7A6A0F572CDCB4080024F943 /* ManModel.swift in Sources */,
 				7A6A0F592CDCB4680024F943 /* FriendModel.swift in Sources */,
 				7A6A0F5C2CDCB4B50024F943 /* String+Extension.swift in Sources */,
+				7A6A0F972CE34E950024F943 /* InviteCell.swift in Sources */,
 				7A6A0F952CE2E4700024F943 /* UIView+Extension.swift in Sources */,
 				7A6A0F862CE1A71A0024F943 /* GradientView.swift in Sources */,
 				7A6A0F552CDCAFC10024F943 /* APIEndpoint+Friend.swift in Sources */,

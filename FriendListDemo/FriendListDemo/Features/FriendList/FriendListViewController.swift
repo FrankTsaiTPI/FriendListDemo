@@ -252,7 +252,8 @@ class FriendListViewController: BaseViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.backgroundColor = .clear
+        tableView.register(InviteCell.self)
         
         return tableView
     }()
@@ -273,7 +274,7 @@ class FriendListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.inputs.setFriendListCellModels()
+        viewModel.inputs.initialTableViewCellModels()
     }
     
     override func setupLayout() {
@@ -345,7 +346,8 @@ class FriendListViewController: BaseViewController {
         }
         
         invitationTableView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
+            $0.top.equalToSuperview().inset(25)
+            $0.bottom.equalToSuperview().inset(10)
             $0.leading.trailing.equalToSuperview().inset(30)
         }
         
@@ -507,12 +509,20 @@ class FriendListViewController: BaseViewController {
             self.friendListBackgroundView.isHidden = friendModel.isEmpty
             self.searchBackgroundView.isHidden = friendModel.isEmpty
             self.noFriendsView.isHidden = !friendModel.isEmpty
+            self.invitationBackgroundView.isHidden = friendModel.filter({ $0.status == .pending }).isEmpty
             
         }.store(in: &cancellables)
         
         viewModel.outputs.friendListCellModelPublisher
             .receive(on: RunLoop.main)
             .bind(subscriber: friendListTableView.rowsSubscriber(cellIdentifier: FriendListCell.reuseIdentifier, cellType: FriendListCell.self, cellConfig: { cell, indexPath,  cellModel in
+
+                cell.configureWith(value: cellModel)
+            })).store(in: &cancellables)
+        
+        viewModel.outputs.inviteListCellModelPublisher
+            .receive(on: RunLoop.main)
+            .bind(subscriber: invitationTableView.rowsSubscriber(cellIdentifier: InviteCell.reuseIdentifier, cellType: InviteCell.self, cellConfig: { cell, indexPath,  cellModel in
 
                 cell.configureWith(value: cellModel)
             })).store(in: &cancellables)

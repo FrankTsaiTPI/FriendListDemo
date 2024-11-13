@@ -86,7 +86,6 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
             }, receiveValue: { manModel, friendModel in
                 self.manAndFriendSubject.send((manModel, friendModel))
             }).store(in: &cancellables)
-        
     }
     
     private func fetchFriendWithoutInvite() {
@@ -120,7 +119,22 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
     }
     
     private func fetchFriendWithInvite() {
+        let manEndpoint: APIEndpoint = .man
+        let friendWithInviteEndpoint: APIEndpoint = .friend3
         
+        let manPublisher = NetworkManager.shared.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
+        let friendWithInvitePublisher = NetworkManager.shared.fetchData(endpoint: friendWithInviteEndpoint, responseModel: FriendModel.self)
+        Publishers.Zip(manPublisher, friendWithInvitePublisher)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    self.errorSubject.send(error)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { manModel, friendModel in
+                self.manAndFriendSubject.send((manModel, friendModel))
+            }).store(in: &cancellables)
     }
 }
 
