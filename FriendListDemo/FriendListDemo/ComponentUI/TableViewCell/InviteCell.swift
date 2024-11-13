@@ -116,7 +116,8 @@ class InviteCell: BaseTableViewCell {
     
     override func configureWith(value: BaseTableViewCell.Value) {
         guard let value = value as? InviteCellModel else { return }
-        
+        cancellables.removeAll()
+    
         userIconImageView.image = UIImage(named: "iconFriendsList")
         nameLabel.text = value.friendModel.name
         
