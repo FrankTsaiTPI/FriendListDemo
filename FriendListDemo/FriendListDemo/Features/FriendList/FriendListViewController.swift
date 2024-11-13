@@ -525,6 +525,14 @@ class FriendListViewController: BaseViewController {
             .bind(subscriber: invitationTableView.rowsSubscriber(cellIdentifier: InviteCell.reuseIdentifier, cellType: InviteCell.self, cellConfig: { cell, indexPath,  cellModel in
 
                 cell.configureWith(value: cellModel)
+                cellModel.agreeButtonTappedSubject.sink {
+                    print("agree : " + cellModel.friendModel.name)
+                }.store(in: &cell.cancellables)
+                
+                cellModel.deleteButtonTappedSubject.sink {
+                    print("delete : " + cellModel.friendModel.name)
+                }.store(in: &cell.cancellables)
+                
             })).store(in: &cancellables)
     }
 }

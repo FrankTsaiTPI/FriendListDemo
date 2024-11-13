@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class InviteCellModel: BaseTableViewCellModel, Hashable {
     override var cellIdentifier: UITableViewCell.Type {
@@ -13,6 +14,8 @@ class InviteCellModel: BaseTableViewCellModel, Hashable {
     }
     
     let friendModel: FriendModel
+    let agreeButtonTappedSubject = PassthroughSubject<Void, Never>()
+    let deleteButtonTappedSubject = PassthroughSubject<Void, Never>()
     
     init(friendModel: FriendModel) {
         self.friendModel = friendModel
@@ -23,5 +26,13 @@ class InviteCellModel: BaseTableViewCellModel, Hashable {
     }
     
     func hash(into hasher: inout Hasher) { hasher.combine(friendModel)
+    }
+    
+    func agreeButtonTapped() {
+        agreeButtonTappedSubject.send(())
+    }
+    
+    func deleteButtonTapped() {
+        deleteButtonTappedSubject.send(())
     }
 }

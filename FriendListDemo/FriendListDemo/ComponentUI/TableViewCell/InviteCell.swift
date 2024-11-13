@@ -56,6 +56,8 @@ class InviteCell: BaseTableViewCell {
         return button
     }()
     
+    var cancellables: Set<AnyCancellable> = []
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -117,5 +119,15 @@ class InviteCell: BaseTableViewCell {
         
         userIconImageView.image = UIImage(named: "iconFriendsList")
         nameLabel.text = value.friendModel.name
+        
+        agreeButton.tapPublisher
+            .sink {
+                value.agreeButtonTapped()
+            }.store(in: &cancellables)
+        
+        deleteButton.tapPublisher
+            .sink {
+                value.deleteButtonTapped()
+            }.store(in: &cancellables)
     }
 }
