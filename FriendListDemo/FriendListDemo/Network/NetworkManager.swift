@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 class NetworkManager {
-    static let shared = NetworkManager()
     private var cancellables: Set<AnyCancellable> = []
     
     func fetchData<T: Decodable>(endpoint: APIEndpoint, responseModel: T.Type) -> AnyPublisher<[T], Error> {

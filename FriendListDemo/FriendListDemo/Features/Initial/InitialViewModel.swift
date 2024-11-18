@@ -49,6 +49,11 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
     private var manAndFriendSubject = PassthroughSubject<([ManModel], [FriendModel]), Never>()
     private var errorSubject = PassthroughSubject<Error, Never>()
     private var cancellables = Set<AnyCancellable>()
+    private var networkManager: NetworkManager
+    
+    init(networkManager: NetworkManager = NetworkManager()) {
+        self.networkManager = networkManager
+    }
     
     func fetchPageTypeItems() {
         let noFriend = PageTypeItem(title: "無好友", pageType: .NoFriend)
@@ -73,8 +78,8 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
         let manEndpoint: APIEndpoint = .man
         let noFriendEndpoint: APIEndpoint = .friend4
         
-        let manPublisher = NetworkManager.shared.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
-        let nofriendPublisher = NetworkManager.shared.fetchData(endpoint: noFriendEndpoint, responseModel: FriendModel.self)
+        let manPublisher = networkManager.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
+        let nofriendPublisher = networkManager.fetchData(endpoint: noFriendEndpoint, responseModel: FriendModel.self)
         Publishers.Zip(manPublisher, nofriendPublisher)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -93,9 +98,9 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
         let friend1Endpoint: APIEndpoint = .friend1
         let friend2Endpoint: APIEndpoint = .friend2
         
-        let manPublisher = NetworkManager.shared.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
-        let friend1Publisher = NetworkManager.shared.fetchData(endpoint: friend1Endpoint, responseModel: FriendModel.self)
-        let friend2Publisher = NetworkManager.shared.fetchData(endpoint: friend2Endpoint, responseModel: FriendModel.self)
+        let manPublisher = networkManager.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
+        let friend1Publisher = networkManager.fetchData(endpoint: friend1Endpoint, responseModel: FriendModel.self)
+        let friend2Publisher = networkManager.fetchData(endpoint: friend2Endpoint, responseModel: FriendModel.self)
         
         Publishers.Zip3(manPublisher, friend1Publisher, friend2Publisher)
             .sink { completion in
@@ -122,8 +127,8 @@ class InitialViewModel: InitialViewModelType, InitialViewModelInputs, InitialVie
         let manEndpoint: APIEndpoint = .man
         let friendWithInviteEndpoint: APIEndpoint = .friend3
         
-        let manPublisher = NetworkManager.shared.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
-        let friendWithInvitePublisher = NetworkManager.shared.fetchData(endpoint: friendWithInviteEndpoint, responseModel: FriendModel.self)
+        let manPublisher = networkManager.fetchData(endpoint: manEndpoint, responseModel: ManModel.self)
+        let friendWithInvitePublisher = networkManager.fetchData(endpoint: friendWithInviteEndpoint, responseModel: FriendModel.self)
         Publishers.Zip(manPublisher, friendWithInvitePublisher)
             .sink(receiveCompletion: { completion in
                 switch completion {
