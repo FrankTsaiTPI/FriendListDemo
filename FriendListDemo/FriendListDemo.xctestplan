@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "CAE779DE-CDC2-479B-A609-9B01DA5B5A53",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:FriendListDemo.xcodeproj",
+        "identifier" : "7A6A0EEC2CDC421E0024F943",
+        "name" : "FriendListDemoUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:FriendListDemo.xcodeproj",
+        "identifier" : "7A6A0EE22CDC421E0024F943",
+        "name" : "FriendListDemoTests"
+      }
+    }
+  ],
+  "version" : 1
+}

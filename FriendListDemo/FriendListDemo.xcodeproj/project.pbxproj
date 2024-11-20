@@ -94,6 +94,7 @@
 		7A6A0F942CE2E4700024F943 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		7A6A0F962CE34E950024F943 /* InviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCell.swift; sourceTree = "<group>"; };
 		7A6A0F982CE34EA20024F943 /* InviteCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCellModel.swift; sourceTree = "<group>"; };
+		7ADF52D52CEDDD0600FFFF26 /* FriendListDemo.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = FriendListDemo.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -140,6 +141,7 @@
 		7A6A0EC42CDC421D0024F943 = {
 			isa = PBXGroup;
 			children = (
+				7ADF52D52CEDDD0600FFFF26 /* FriendListDemo.xctestplan */,
 				7A6A0F232CDC536F0024F943 /* FriendListDemo */,
 				7A6A0EE62CDC421E0024F943 /* FriendListDemoTests */,
 				7A6A0EF02CDC421E0024F943 /* FriendListDemoUITests */,
